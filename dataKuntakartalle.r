@@ -79,18 +79,20 @@ mergeDataIntoMap <- function(data, dataKey, geoData = sp, geoKey = "Kunta", setG
 
 #' Vizualize data onto map
 #'
-#' @param  data      data.frame  dataset containing variable for vizualization
-#' @param  varToMap  String      variable name for vizualization on map
-#' @param  varText   String      description text for showing in popups on map
-#' @param  setGlobal Boolean default TRUE - sets sp as global object, 
+#' @param  varToMap    String      variable name for vizualization
+#' @param  varText     String      description text for showing in popups on map
+#' @param  mergedData  sp-object   merge map-data, default global spMerged -object
+#' @param  setGlobal   Boolean default TRUE - sets sp as global object, 
 #'                              if another name to be assigned use FALSE to return the object
+#' @param  palette     Function    color palette function for data vizualization, default is colorNumeric(c("red", "yellow", "green"), NULL)
+#' @param  borderColor String      color string for municipality border vizualization, default #000000
 #' @return              sets global readyMap named leaflet -object, 
 #'                      if setGlobal set to FALSE returns the same object
 #' @examples            
 #' vizualizeDataOnMap("varhemaksu", "Varhe-maksu vuonna 2012")
 #' leafletMap <- vizualizeDataOnMap("varhemaksu", "Varhe-maksu vuonna 2012", dt, FALSE, colorNumeric(c("yellow", "blue"), NULL, na.color = "#FFFFFF"), "#FFFFFF")
 #'                      
-vizualizeDataOnMap <- function(varToMap, varText, mergedData = spMerged, setGlobal=T, palette = colorNumeric(c("red", "yellow", "green"), NULL, na.color = ""), borderColor="#000000") {
+vizualizeDataOnMap <- function(varToMap, varText, mergedData = spMerged, setGlobal=T, palette = colorNumeric(c("red", "yellow", "green"), NULL), borderColor="#000000") {
   
   state_popup <- paste0("<strong>Kunta: </strong>", mergedData$Kunta_ni1, 
                         "<br><strong>", varText, ": </strong>", 
