@@ -98,12 +98,13 @@ vizualizeDataOnMap <- function(varToMap, varText, mergedData = spMerged, setGlob
                         "<br><strong>", varText, ": </strong>", 
                         round(mergedData@data[,c(varToMap)], digits=2))
   
-  k = leaflet(data = mergedData) %>% addTiles() %>% 
+  k <- leaflet(data = mergedData) %>% 
+    addTiles() %>% 
     addPolygons(fillColor = ~palette(get(varToMap)), 
-                fillOpacity = 0.7, 
+                fillOpacity = 0.9, 
                 color = borderColor, 
                 weight = 1,
-                popup = state_popup)
+                popup = state_popup) 
   
   if(setGlobal) {
     readyMap <<- k
